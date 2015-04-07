@@ -22,22 +22,15 @@ read -s PASSWORD
 USERANDPASS=$(printf "${USER}:${PASSWORD}" | base64 )
 
 # authentication
-curl -v -k \
+curl -k \
 -b $COOKIE_PATH -c $COOKIE_PATH \
 --header "Authorization: Basic ${USERANDPASS}" \
 "${URL}/MantidRemote/authenticate"
 
-echo "**** info:"
-curl -v -k -s \
--b $COOKIE_PATH -c $COOKIE_PATH \
-"${URL}/MantidRemote/info" \
-| python -mjson.tool
-
-# echo "**** start transaction:"
+# echo "**** info:"
 # curl -k -s \
 # -b $COOKIE_PATH -c $COOKIE_PATH \
-# -X GET \
-# "${URL}/MantidRemote/transaction?Action=Start" \
+# "${URL}/MantidRemote/info" \
 # | python -mjson.tool
 
 # echo "**** Get info about a transaction:"
@@ -46,4 +39,20 @@ curl -v -k -s \
 # -X GET \
 # "${URL}/MantidRemote/files?TransID=366" \
 # | python -mjson.tool
+
+
+# echo "**** File web_submission.py:"
+# curl -k -s \
+# -b $COOKIE_PATH -c $COOKIE_PATH \
+# -X GET \
+# "${URL}/MantidRemote/download?TransID=366&File=web_submission.py" 
+
+
+
+echo "**** File 33321.fermi-mgmt3.ornl.gov.ER:"
+curl -k -s \
+-b $COOKIE_PATH -c $COOKIE_PATH \
+-X GET \
+"${URL}/MantidRemote/download?TransID=366&File=33321.fermi-mgmt3.ornl.gov.ER"
+
 
