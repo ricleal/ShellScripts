@@ -21,6 +21,12 @@ read -s PASSWORD
 
 USERANDPASS=$(printf "${USER}:${PASSWORD}" | base64 )
 
+# info
+curl -k \
+-b $COOKIE_PATH -c $COOKIE_PATH \
+--header "Authorization: Basic ${USERANDPASS}" \
+"${URL}/MantidRemote/Info"
+
 # authentication
 curl -v -k \
 -b $COOKIE_PATH -c $COOKIE_PATH \
