@@ -16,7 +16,7 @@ unzip ovpn.zip
 # import the files in NETWORK_MANAGER_CONFIG_DIRECTORY
 for file in `ls ovpn_tcp/ ovpn_udp/`
 do
-    echo sudo nmcli connection import type openvpn $file 
+    sudo nmcli connection import type openvpn file $file 
 done
 
 # Edit the imported files
