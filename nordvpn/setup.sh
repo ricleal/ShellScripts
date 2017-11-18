@@ -14,7 +14,15 @@ unzip ovpn.zip
 # ovpn_tcp/ ovpn_udp/
 
 # import the files in NETWORK_MANAGER_CONFIG_DIRECTORY
-for file in `ls ovpn_tcp/ ovpn_udp/`
+
+cd /tmp/ovpn_tcp/
+for file in `ls *.ovpn`
+do
+    sudo nmcli connection import type openvpn file $file 
+done
+
+cd /tmp/ovpn_udp/
+for file in `ls *.ovpn`
 do
     sudo nmcli connection import type openvpn file $file 
 done
@@ -24,8 +32,10 @@ for file in `ls ${NETWORK_MANAGER_CONFIG_DIRECTORY}/*.nordvpn.*`
 do
     echo  $file
     # Append after
-    sed -i '/mssfix=yes/a username=${USERNAME}' $file
-    sed -i 's/password-flags=1/password-flags=0/g' $file
-    echo "[vpn-secrets]" >> $file
-    echo "password=${PASSWORD}" >> $file
+    sudo sed -i '/mssfix=yes/a username=${USERNAME}' $file
+    sudo sed -i 's/password-flags=1/password-flags=0/g' $file
+    sudo echo "" >> $file
+    sudo echo "[vpn-secrets]" >> $file
+    sudo echo "password=${PASSWORD}" >> $file
+    sudo echo "" >> $file
 done
