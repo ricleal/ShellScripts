@@ -34,8 +34,8 @@ do
     # Append after
     sudo sed -i '/mssfix=yes/a username=${USERNAME}' $file
     sudo sed -i 's/password-flags=1/password-flags=0/g' $file
-    sudo echo "" >> $file
-    sudo echo "[vpn-secrets]" >> $file
-    sudo echo "password=${PASSWORD}" >> $file
-    sudo echo "" >> $file
+    echo "" | sudo tee --append $file
+    echo "[vpn-secrets]" | sudo tee --append $file
+    echo "password=${PASSWORD}" | sudo tee --append $file
+    echo "" | sudo tee --append $file
 done
